@@ -1,8 +1,7 @@
 pragma solidity ^0.4.16;
-contract Ads { // version 0.10
+contract Ads { // version 0.11
  
-    struct Ad{
-		uint id;
+    struct decentralAd{
 		address owner;
 		string imageUrl;
 		string linkUrl;
@@ -11,10 +10,7 @@ contract Ads { // version 0.10
 		bool canChange;
     }
 	
-	Ad public topAd;
-	Ad public firstAd;
-	Ad public secondAd;
-	Ad public thirdAd;
+	decentralAd[4] public Ad;
     
 	uint256 public topAdCurrentPrice = 1000000000000000;
 	uint256 public currentPrice = 1000000000000000;
@@ -23,10 +19,6 @@ contract Ads { // version 0.10
     
 	function Ads() public{
 		contractOwner = msg.sender;
-		topAd.id = 0;
-		firstAd.id = 1;
-		secondAd.id = 2;
-		thirdAd.id = 3;
     }
 
 	function placeTopAd(string imageUrl, string linkUrl, string title) payable public{
@@ -37,16 +29,15 @@ contract Ads { // version 0.10
 			}
 			uint256 payoutPrice = (topAdCurrentPrice * 105) / 100;
             
-			topAd.owner.transfer(topAd.payout);
+			Ad[0].owner.transfer(Ad[0].payout);
             
-			topAd = Ad({
+			Ad[0] = decentralAd({
 				owner : msg.sender,
 				imageUrl: imageUrl,
 				linkUrl: linkUrl,
 				title: title,
 				payout: payoutPrice,
-				canChange : true,
-				id: 0
+				canChange : true
 			});
             
 			topAdCurrentPrice = (topAdCurrentPrice * 110) / 100;
@@ -65,20 +56,17 @@ contract Ads { // version 0.10
 			}
 			uint256 payoutPrice = (currentPrice * 105) / 100;
 
-			thirdAd.owner.transfer(thirdAd.payout);
+			Ad[3].owner.transfer(Ad[3].payout);
 
-			thirdAd = secondAd;
-			thirdAd.id = 3;
-			secondAd = firstAd;
-			secondAd.id = 2;
-			firstAd = Ad({
+			Ad[3] = Ad[2];
+			Ad[2] = Ad[1];
+			Ad[1] = decentralAd({
 				owner : msg.sender,
 				imageUrl: imageUrl,
 				linkUrl: linkUrl,
 				title: title,
 				payout: payoutPrice,
-				canChange : true,
-				id: 1
+				canChange : true
 			});
             
 			currentPrice = (currentPrice * 110) / 100;
@@ -90,27 +78,10 @@ contract Ads { // version 0.10
 	}
     
 	function modifyAd(uint id, string title, string imageUrl, string linkUrl) hasValidId(id) public{
-		if(id == 0){
-			require((msg.sender == topAd.owner && topAd.canChange) || msg.sender == contractOwner);
-			topAd.title = title;
-			topAd.imageUrl = imageUrl;
-			topAd.linkUrl = linkUrl;
-		} else if(id == 1){
-			require((msg.sender == firstAd.owner && firstAd.canChange) || msg.sender == contractOwner);
-			firstAd.title = title;
-			firstAd.imageUrl = imageUrl;
-			firstAd.linkUrl = linkUrl;
-		} else if(id == 2) {
-			require((msg.sender == secondAd.owner && secondAd.canChange) || msg.sender == contractOwner);
-			secondAd.title = title;
-			secondAd.imageUrl = imageUrl;
-			secondAd.linkUrl = linkUrl;
-		} else {
-			require((msg.sender == thirdAd.owner && thirdAd.canChange) || msg.sender == contractOwner);
-			thirdAd.title = title;
-			thirdAd.imageUrl = imageUrl;
-			thirdAd.linkUrl = linkUrl;
-		}
+		require((msg.sender == Ad[id].owner && Ad[id].canChange) || msg.sender == contractOwner);
+		Ad[id].title = title;
+		Ad[id].imageUrl = imageUrl;
+		Ad[id].linkUrl = linkUrl;
 	}
     
 	modifier onlyOwner {
@@ -124,15 +95,7 @@ contract Ads { // version 0.10
 	}
     
 	function disableChangePermissions(uint256 id) onlyOwner hasValidId(id) public {
-		if(id == 0){
-			topAd.canChange = false;
-		} else if(id == 1) {
-			firstAd.canChange = false;            
-		} else if(id == 2) {
-			secondAd.canChange = false;
-		} else {
-			thirdAd.canChange = false;
-		}
+		Ad[id].canChange = false;	    
 	}
 
 	function withdrawFees() onlyOwner public{
