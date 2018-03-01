@@ -2,7 +2,8 @@ import {
   ADS_HAS_ERRORED,
   ADS_ARE_LOADING,
   AD_FETCH_DATA_SUCCESS,
-  ADD_AD_FETCH_DATA_SUCCESS
+  ADD_AD_FETCH_DATA_SUCCESS,
+  RESET_AD_FETCH_DATA_SUCCESS
 } from '../constants/ads'
 
 export function adsHasErrored(state = false, action) {
@@ -36,6 +37,8 @@ export function ads(state = [], action){
   switch (action.type) {
     case ADD_AD_FETCH_DATA_SUCCESS:
       return [...state, action.ads]
+    case RESET_AD_FETCH_DATA_SUCCESS:
+      return []
     default:
       return state
   }
