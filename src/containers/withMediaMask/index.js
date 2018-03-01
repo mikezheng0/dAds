@@ -2,7 +2,9 @@ import React, { Component } from "react"
 import Web3 from "web3"
 import { connect } from "react-redux"
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/contract"
-import { adFetchData, adsFetchData, resetAds } from '../../actions/adActions'
+import { adFetchData, adsFetchData, resetAds } from "../../actions/adActions"
+
+import { getCurrentValue } from "../../actions/currentValueActions"
 
 export default WrappedComponent => {
   class WithMediaMask extends Component {
@@ -20,20 +22,21 @@ export default WrappedComponent => {
       }
       this.contract = web3.eth.contract(CONTRACT_ABI).at(CONTRACT_ADDRESS)
     }
-    
+
     componentDidMount() {
       this.props.resetSideAds()
       this.props.getMainAd(0, this.contract)
-      this.props.getSideAds([1,2,3], this.contract)
+      this.props.getSideAds([1, 2, 3], this.contract)
+      this.props.getCurrentValue(this.contract)
     }
 
     render() {
       if (this.props.hasErrored) {
-        return <p>Sorry! There was an error loading the items</p>;
+        return <p>Sorry! There was an error loading the items</p>
       }
 
       if (this.props.isLoading) {
-        return <p>Loading…</p>;
+        return <p>Loading…</p>
       }
 
       return <WrappedComponent {...this.props} />
@@ -43,6 +46,7 @@ export default WrappedComponent => {
     return {
       mainAd: state.ad,
       sideAds: state.ads,
+      currentValue: state.currentValue,
       hasErrored: state.hasErrored,
       isLoading: state.isLoading
     }
@@ -52,6 +56,7 @@ export default WrappedComponent => {
     return {
       getMainAd: (id, contract) => dispatch(adFetchData(id, contract)),
       getSideAds: (ids, contract) => dispatch(adsFetchData(ids, contract)),
+      getCurrentValue: contract => dispatch(getCurrentValue(contract)),
       resetSideAds: () => dispatch(resetAds())
     }
   }
