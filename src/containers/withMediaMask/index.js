@@ -52,7 +52,7 @@ export default WrappedComponent => {
   const mapDispatchToProps = dispatch => {
     return {
       getMainAd: (id, contract) => dispatch(adFetchData(id, contract)),
-      getSideAds: (id, contract) => dispatch(adsFetchData(id, contract))
+      getSideAds: (ids, contract) => dispatch(adsFetchData(ids, contract))
     }
   }
 

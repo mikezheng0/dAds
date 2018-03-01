@@ -26,10 +26,10 @@ export function adFetchDataSuccess(ad) {
   }
 }
 
-export function addadFetchDataSuccess(ad) {
+export function addadFetchDataSuccess(ads) {
   return {
     type: ADD_AD_FETCH_DATA_SUCCESS,
-    ad
+    ads
   }
 }
 
@@ -54,7 +54,7 @@ export function adsFetchData(ids, contract) {
       callContract(id, contract)
         .then(result => {
           console.log(result)
-          dispatch(adFetchDataSuccess(result))
+          dispatch(addadFetchDataSuccess(result))
         })
         .catch(error => {
           dispatch(adsHasErrored(true))
