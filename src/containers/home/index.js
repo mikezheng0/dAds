@@ -1,5 +1,10 @@
-import React from "react"
+import React, { Component } from "react"
+import withMediaMask from '../withMediaMask'
+class Home extends Component {
 
-const Home = () => <div>Home Page</div>
+  render() {
+    return <div>{}</div>
+  }
 
-export default Home
+}
+export default withMediaMask(Home)
