@@ -56,26 +56,16 @@ export function adFetchData(id, contract) {
 export function adsFetchData(ids, contract) {
   return dispatch => {
     dispatch(adsIsLoading(true))
-    ids.forEach(id => {
+    for(let id of ids)
+    {
       contract.methods.Ad(id).call()
         .then(result => {
+          result.id = id
           dispatch(addadFetchDataSuccess(result))
         })
         .catch(error => {
           dispatch(adsHasErrored(true))
         })
-    })
+    }
   }
-}
-
-function callAdContract(id, contract) {
-  return new Promise((resolve, reject) => {
-    contract.methods.Ad(id, function(error, result) {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(result)
-      }
-    })
-  })
 }

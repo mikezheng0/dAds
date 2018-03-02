@@ -211,4 +211,7 @@ const CONTRACT_ABI = [
   }
 ]
 
-export { CONTRACT_ADDRESS, CONTRACT_ABI }
+const RINKEBY_ENDPOINT = 'https://rinkeby.infura.io'
+const RINKEBY_API_KEY = 'PctD67gJ9wNf9YzyDYHi'
+
+export { CONTRACT_ADDRESS, CONTRACT_ABI, RINKEBY_ENDPOINT, RINKEBY_API_KEY }

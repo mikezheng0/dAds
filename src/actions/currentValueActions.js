@@ -18,15 +18,3 @@ export function getCurrentValue(contract) {
       })
   }
 }
-
-function callCurrentValueContract(contract) {
-  return new Promise((resolve, reject) => {
-    contract.methods.currentPrice(function(error, result) {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(result)
-      }
-    })
-  })
-}

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Web3 from "web3"
 import { connect } from "react-redux"
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../constants/contract"
+import { CONTRACT_ADDRESS, CONTRACT_ABI, RINKEBY_ENDPOINT, RINKEBY_API_KEY } from "../../constants/contract"
 import { adFetchData, adsFetchData, resetAds } from "../../actions/adActions"
 
 import { getCurrentValue } from "../../actions/currentValueActions"
@@ -17,7 +17,7 @@ export default WrappedComponent => {
       } else {
         web3 = new Web3()
         web3.setProvider(new Web3.providers.HttpProvider(
-          "https://rinkeby.infura.io/PctD67gJ9wNf9YzyDYHi"
+          `${RINKEBY_ENDPOINT}/${RINKEBY_API_KEY}`
         ))
       }
       this.contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
@@ -45,7 +45,7 @@ export default WrappedComponent => {
   const mapStateToProps = state => {
     return {
       mainAd: state.ad,
-      sideAds: state.ads,
+      sideAds: [...state.ads].sort((a, b) => a.id - b.id),
       currentValue: state.currentValue,
       hasErrored: state.hasErrored,
       isLoading: state.isLoading
