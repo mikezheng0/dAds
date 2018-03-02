@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { CONTRACT_ADDRESS, CONTRACT_ABI, RINKEBY_ENDPOINT, RINKEBY_API_KEY } from "../../constants/contract"
 import { adFetchData, adsFetchData, resetAds } from "../../actions/adActions"
 
-import { getCurrentValue } from "../../actions/currentValueActions"
+import { getCurrentValue, getTopAdValue } from "../../actions/currentValueActions"
 
 export default WrappedComponent => {
   class WithMediaMask extends Component {
@@ -13,7 +13,7 @@ export default WrappedComponent => {
 
       let web3 = window.web3
       if (typeof web3 !== "undefined") {
-        new Web3(web3.currentProvider)
+        web3 = new Web3(web3.currentProvider)
       } else {
         web3 = new Web3()
         web3.setProvider(new Web3.providers.HttpProvider(
@@ -28,6 +28,7 @@ export default WrappedComponent => {
       this.props.getMainAd(0, this.contract)
       this.props.getSideAds([1, 2, 3], this.contract)
       this.props.getCurrentValue(this.contract)
+      this.props.getTopAdValue(this.contract)
     }
 
     render() {
@@ -47,6 +48,7 @@ export default WrappedComponent => {
       mainAd: state.ad,
       sideAds: [...state.ads].sort((a, b) => a.id - b.id),
       currentValue: state.currentValue,
+      currentTopAdValue: state.currentTopAdValue,
       hasErrored: state.hasErrored,
       isLoading: state.isLoading
     }
@@ -57,6 +59,7 @@ export default WrappedComponent => {
       getMainAd: (id, contract) => dispatch(adFetchData(id, contract)),
       getSideAds: (ids, contract) => dispatch(adsFetchData(ids, contract)),
       getCurrentValue: contract => dispatch(getCurrentValue(contract)),
+      getTopAdValue: contract => dispatch(getTopAdValue(contract)),
       resetSideAds: () => dispatch(resetAds())
     }
   }

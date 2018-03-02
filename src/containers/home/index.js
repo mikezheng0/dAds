@@ -9,6 +9,7 @@ class Home extends Component {
         <Advertisment ad={this.props.mainAd} />
         <p>current value: {this.props.currentValue}</p>
         {this.props.sideAds && this.props.sideAds.map((ad) => <Advertisment ad={ad} key={ad.id}/>)}
+        <p>current top ad value: {this.props.currentTopAdValue}</p>
       </div>
     )
   }
