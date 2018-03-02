@@ -9,7 +9,7 @@ export function currentPriceSuccess(currentValue) {
 
 export function getCurrentValue(contract) {
   return dispatch => {
-    callCurrentValueContract(contract)
+    contract.methods.currentPrice().call()
       .then(result => {
         dispatch(currentPriceSuccess(result.toString()))
       })
@@ -21,7 +21,7 @@ export function getCurrentValue(contract) {
 
 function callCurrentValueContract(contract) {
   return new Promise((resolve, reject) => {
-    contract.currentPrice.call(function(error, result) {
+    contract.methods.currentPrice(function(error, result) {
       if (error) {
         reject(error)
       } else {

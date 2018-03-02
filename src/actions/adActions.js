@@ -43,7 +43,7 @@ export function resetAds() {
 export function adFetchData(id, contract) {
   return dispatch => {
     dispatch(adsIsLoading(true))
-    callAdContract(id, contract)
+    contract.methods.Ad(id).call()
       .then(result => {
         dispatch(adFetchDataSuccess(result))
       })
@@ -57,7 +57,7 @@ export function adsFetchData(ids, contract) {
   return dispatch => {
     dispatch(adsIsLoading(true))
     ids.forEach(id => {
-      callAdContract(id, contract)
+      contract.methods.Ad(id).call()
         .then(result => {
           dispatch(addadFetchDataSuccess(result))
         })
@@ -70,7 +70,7 @@ export function adsFetchData(ids, contract) {
 
 function callAdContract(id, contract) {
   return new Promise((resolve, reject) => {
-    contract.Ad.call(id, function(error, result) {
+    contract.methods.Ad(id, function(error, result) {
       if (error) {
         reject(error)
       } else {

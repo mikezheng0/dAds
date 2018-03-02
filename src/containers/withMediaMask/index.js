@@ -16,11 +16,11 @@ export default WrappedComponent => {
         new Web3(web3.currentProvider)
       } else {
         web3 = new Web3()
-        web3.providers.HttpProvider(
+        web3.setProvider(new Web3.providers.HttpProvider(
           "https://rinkeby.infura.io/PctD67gJ9wNf9YzyDYHi"
-        )
+        ))
       }
-      this.contract = web3.eth.contract(CONTRACT_ABI).at(CONTRACT_ADDRESS)
+      this.contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
     }
 
     componentDidMount() {
