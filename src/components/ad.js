@@ -1,12 +1,13 @@
 import React from "react"
+import { Card, CardImage } from "../styles"
 
 const Advertisement = ({ ad }) => (
-  <div>
-    <h1>{ad.title}</h1>
+  <Card>
     <a href={ad.linkUrl}>
-      <img style={{ maxWidth: 200 }} alt={ad.title} src={ad.imageUrl} />
+      <CardImage alt={ad.title} src={ad.imageUrl} />
     </a>
-  </div>
+    <h2>{ad.title}</h2>
+  </Card>
 )
 
 export default Advertisement
