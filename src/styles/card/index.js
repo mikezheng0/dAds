@@ -14,12 +14,6 @@ const Card = styled.div `
     }
     
 `
-const CardImage = styled.img `
-    max-width: 100%;
-    border-radius: 10px;
-    max-height: 100%;
-    overflow: hidden;
-`
 
 const HoverImageLink = styled.a `
     border-radius: 10px;
@@ -28,10 +22,24 @@ const HoverImageLink = styled.a `
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 2;
     &:hover {
-      background-color:  rgba(13, 34, 68, 0.4);
+      transition: all 250ms ease-in-out;
+      background: linear-gradient(rgba(0,0,0,0.06) 0%,rgba(0,0,0,0.1) 60%,rgba(0, 0, 0, 0.25) 100%)
     }
 `
+
+const CardImage = styled.img `
+    max-width: 100%;
+    border-radius: 10px;
+    max-height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    ${HoverImageLink}:hover ~ & {
+      filter: blur(1px);
+    }
+`
+
 
 const HoverTitle = styled.span `
     visibility: hidden;
