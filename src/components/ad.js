@@ -1,12 +1,12 @@
 import React from "react"
-import { Card, CardImage } from "../styles"
+import { Card, CardImage, HoverImageLink, HoverTitle } from "../styles"
 
-const Advertisement = ({ ad }) => (
-  <Card>
-    <a href={ad.linkUrl}>
-      <CardImage alt={ad.title} src={ad.imageUrl} />
-    </a>
-    <h2>{ad.title}</h2>
+const Advertisement = ({ ad, fullSize }) => (
+  <Card fullSize={fullSize}>
+    <CardImage alt={ad.title} src={ad.imageUrl} />
+    <HoverImageLink href={ad.linkUrl}>
+      <HoverTitle>{ad.title}</HoverTitle>
+    </HoverImageLink>
   </Card>
 )
 
