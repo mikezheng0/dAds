@@ -7,7 +7,12 @@ const AdGrid = styled.div`
     flex-direction: column;
   }
 `
+const NavBar = styled.nav`
+  display:flex;
+  justify-content: space-between;
+`
 
 export {
-  AdGrid
+  AdGrid,
+  NavBar
 }

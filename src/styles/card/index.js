@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import {hoverColor} from '../constants/colors'
 const Card = styled.div `
     background: #fff;
     border-radius: 10px;
@@ -25,7 +25,7 @@ const HoverImageLink = styled.a `
     z-index: 2;
     &:hover {
       transition: all 250ms ease-in-out;
-      background: linear-gradient(rgba(0,0,0,0.06) 0%,rgba(0,0,0,0.1) 60%,rgba(0, 0, 0, 0.25) 100%)
+      background: linear-gradient(rgba(0,0,0,0.06) 0%,rgba(0,0,0,0.1) 60%,rgba(0, 0, 0, 0.15) 100%)
     }
 `
 
@@ -55,9 +55,28 @@ const HoverTitle = styled.span `
     }
 `
 
+const HoverButton = styled.button `
+    font-size:20px;
+    position:absolute;
+    bottom: 8px;
+    right: 8px;
+    text-decoration: none;
+    background: none;
+    border:0;
+    color: black;
+    padding: 10px;
+    opacity: 0.4;
+
+    &:hover {
+      background-color: ${hoverColor};
+      border-radius: 16px;
+    }
+`
+
 export {
   Card,
   CardImage,
   HoverImageLink,
-  HoverTitle
+  HoverTitle,
+  HoverButton
 }
