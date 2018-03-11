@@ -69,3 +69,15 @@ export function adsFetchData(ids, contract) {
     }
   }
 }
+
+export function createAd(imageUrl, linkUrl, title, currentPrice, address, contract) {
+      contract.methods.placeAd(imageUrl, linkUrl, title).call({from: address, value: currentPrice})
+        .then(result => {
+          // do stuff
+        })
+        .catch(error => {
+          // do stuff
+        })
+}
+
+
