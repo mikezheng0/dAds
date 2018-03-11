@@ -13,7 +13,7 @@ class Home extends Component {
           {this.props.sideAds && this.props.sideAds.map((ad) => <Advertisment ad={ad} key={ad.id}/>)}
         </AdGrid>
         <p>current top ad value: {this.props.currentTopAdValue}</p>
-        <PlaceAd></PlaceAd>
+        <PlaceAd placeAd={this.props.placeAd}></PlaceAd>
       </div>
     )
   }

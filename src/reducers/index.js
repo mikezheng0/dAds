@@ -1,6 +1,14 @@
 import { combineReducers } from "redux"
 import { routerReducer } from "react-router-redux"
-import { ad, ads, adsHasErrored, adsIsLoading } from "./adReducers"
+import {
+  ad,
+  ads,
+  adsHasErrored,
+  adsIsLoading,
+  imgurl,
+  linkurl,
+  title
+} from "./adReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
 export default combineReducers({
   routing: routerReducer,
@@ -9,5 +17,8 @@ export default combineReducers({
   adsHasErrored,
   adsIsLoading,
   currentValue,
-  currentTopAdValue
+  currentTopAdValue,
+  title,
+  imgurl,
+  linkurl
 })

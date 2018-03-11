@@ -14,7 +14,7 @@ export default WrappedComponent => {
       let web3 = window.web3
       if (typeof web3 !== "undefined") {
         web3 = new Web3(web3.currentProvider)
-        web3.eth.getAccounts().then(function(data){
+        web3.eth.getAccounts().then((data)=>{
           this.address = data[0]
         })
         .catch(function(error){
@@ -27,14 +27,11 @@ export default WrappedComponent => {
         ))
       }
       this.contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
+      this.placeAd = this.placeAd.bind( this)
     }
 
     placeAd(){
-      imgurl = "test"
-      linkurl = "test"
-      title = "title"
-
-      this.props.createNewAd(imgurl, linkurl, title, getCurrentValue(this.contract), this.address[0], this.contract)
+      this.props.createNewAd(this.props.imgurl, this.props.linkurl, this.props.title, this.props.currentValue, this.address, this.contract)
     }
 
     componentDidMount() {
@@ -43,7 +40,6 @@ export default WrappedComponent => {
       this.props.getSideAds([1, 2, 3], this.contract)
       this.props.getCurrentValue(this.contract)
       this.props.getTopAdValue(this.contract)
-
     }
 
     render() {
@@ -55,7 +51,7 @@ export default WrappedComponent => {
         return <p>Loading…</p>
       }
 
-      return <WrappedComponent {...this.props} />
+      return <WrappedComponent {...this.props} placeAd={this.placeAd}/>
     }
   }
   const mapStateToProps = state => {
@@ -65,7 +61,10 @@ export default WrappedComponent => {
       currentValue: state.currentValue,
       currentTopAdValue: state.currentTopAdValue,
       hasErrored: state.hasErrored,
-      isLoading: state.isLoading
+      isLoading: state.isLoading,
+      imgurl: state.imgurl,
+      linkurl: state.linkurl,
+      title: state.title
     }
   }
 

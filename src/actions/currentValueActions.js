@@ -21,7 +21,7 @@ export function getCurrentValue(contract) {
   return dispatch => {
     contract.methods.currentPrice().call()
       .then(result => {
-        dispatch(currentPriceSuccess(web3.utils.fromWei(result, 'ether')))
+        dispatch(currentPriceSuccess(result))
       })
       .catch(error => {
         console.error(error)

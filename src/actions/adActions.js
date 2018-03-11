@@ -3,7 +3,10 @@ import {
   ADS_ARE_LOADING,
   AD_FETCH_DATA_SUCCESS,
   ADD_AD_FETCH_DATA_SUCCESS,
-  RESET_AD_FETCH_DATA_SUCCESS
+  RESET_AD_FETCH_DATA_SUCCESS,
+  IMG_URL_CHANGED,
+  LINK_URL_CHANGED,
+  TITLE_CHANGED
 } from "../constants/ads"
 
 export function adsHasErrored(bool) {
@@ -71,13 +74,34 @@ export function adsFetchData(ids, contract) {
 }
 
 export function createAd(imageUrl, linkUrl, title, currentPrice, address, contract) {
-      contract.methods.placeAd(imageUrl, linkUrl, title).call({from: address, value: currentPrice})
+  return dispatch => {
+      contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
         .then(result => {
-          // do stuff
+          // do stuff 
         })
         .catch(error => {
           // do stuff
         })
 }
+}
 
+export function onChangeImgUrl(imgurl){
+  return {
+    type: IMG_URL_CHANGED,
+    imgurl
+  }
+}
 
+export function onChangeLinkUrl(linkurl){
+  return {
+    type: LINK_URL_CHANGED,
+    linkurl
+  }
+}
+
+export function onChangeTitle(title){
+  return {
+    type: TITLE_CHANGED,
+    title
+  }
+}
