@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import withMediaMask from "../withMediaMask"
 import Advertisment from "../../components/ad"
-import PlaceAd from "../../components/placeAd"
 import { AdGrid } from '../../styles'
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -10,19 +10,18 @@ class Home extends Component {
   }
 
   handleClick(){
-    console.log("hi from home")
   }
   
   render() {
     return (
       <div>
-        <Advertisment ad={this.props.mainAd} fullSize={true} handleClick={this.handleClick}/>
+        <Advertisment ad={this.props.mainAd} fullSize={true} handleClick={this.handleClick} placeAd={this.props.placeAd}/>
         <p>current value: {this.props.currentValue}</p>
         <AdGrid>
           {this.props.sideAds && this.props.sideAds.map((ad) => <Advertisment ad={ad} key={ad.id}/>)}
         </AdGrid>
         <p>current top ad value: {this.props.currentTopAdValue}</p>
-        <PlaceAd placeAd={this.props.placeAd}></PlaceAd>
+        
       </div>
     )
   }

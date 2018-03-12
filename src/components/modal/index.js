@@ -6,37 +6,49 @@ import { hoverColor } from '../../styles/constants/colors';
 
 const modalRoot = document.getElementById('modal-root');
 
-const ModalContainer = styled.div`
+const ModalOverlay = styled.div`
   background: rgba(0,0,0,0.4);
   position:fixed;
   display:flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   top:0;
   left:0;
+  bottom:0;
+  right:0;
+  overflow-y: auto;
   width:100%;
   height:100%;
   z-index: 1050;
 `
 
 const ModalContent = styled.div`
+  margin-top: 10%;
   background: white;
-  position: fixed;
+  position: relative;
   border-radius: 8px;
-  min-width: 300px;
+  min-width: 50%;
   min-height: 400px;
-  padding: 50px 35px;
-  box-sizing: border-box;
+  padding: 20px 35px 30px 35px;
 `
 
+const ModalHeader = styled.div`
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const ModalTitle = styled.h2`
+  font-variant-caps: small-caps;
+  font-size:20px;
+  text-transform: uppercase;
+  font-weight: 300;
+`
 const ModalCloseButton = styled.button`
   border: 0;
   background: none;
   font-size: 20px;
-  position: absolute;
-  right: 16px;
   line-height: 1.3;
-  top: 16px;
   cursor: pointer;
   color: grey;
   opacity: 0.4;
@@ -62,12 +74,12 @@ class Modal extends Component {
 
   componentDidMount() {
     modalRoot.appendChild(this.el);
+    
   }
 
   componentWillUnmount() {
     modalRoot.removeChild(this.el);
   }
-
 
   openModal(event) {
     event.preventDefault()
@@ -76,21 +88,25 @@ class Modal extends Component {
   }
 
   preventAction(event) {
-    event.preventDefault()
     event.stopPropagation()
   }
 
   showModal() {
     if(this.state.shouldShowModal){
-      return ReactDOM.createPortal( <ModalContainer onClick={this.closeModal}>
+      document.getElementById('main-body').classList.add('ReactModal__Body--open')
+      return ReactDOM.createPortal( <ModalOverlay className="open-modal" onClick={this.closeModal}>
           <ModalContent onClick={this.preventAction}>
-            <ModalCloseButton onClick={this.closeModal}>✖</ModalCloseButton>
+            <ModalHeader>
+              <ModalTitle>Buy an Ad</ModalTitle> 
+              <ModalCloseButton onClick={this.closeModal}>✖</ModalCloseButton>
+            </ModalHeader>
               {this.props.children}          
-            </ModalContent>
-      </ModalContainer>,
+          </ModalContent>
+      </ModalOverlay>,
       this.el,
       )
     }
+    document.getElementById('main-body').classList.remove('ReactModal__Body--open')
     return;
   }
 

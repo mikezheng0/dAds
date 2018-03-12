@@ -1,6 +1,9 @@
 import styled from 'styled-components'
-import {hoverColor} from '../constants/colors'
+import {
+  hoverColor
+} from '../constants/colors'
 const Card = styled.div `
+    min-height:300px;
     background: #fff;
     border-radius: 10px;
     position: relative;
@@ -30,6 +33,7 @@ const HoverImageLink = styled.a `
 `
 
 const CardImage = styled.img `
+    
     max-width: 100%;
     border-radius: 10px;
     max-height: 100%;
@@ -49,28 +53,34 @@ const HoverTitle = styled.span `
     left: 8px;
     text-decoration: none;
     color: white;
-    font-family: "Segoe UI";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
     ${HoverImageLink}:hover & {
       visibility: visible;
     }
 `
 
-const HoverButton = styled.button `
+const Button = styled.button`
     font-size:20px;
-    position:absolute;
-    bottom: 8px;
-    right: 8px;
     text-decoration: none;
     background: none;
     border:0;
     color: black;
     padding: 10px;
     opacity: 0.4;
+  &:hover {
+    background-color: ${hoverColor};
+    border-radius: 16px;
+  }
+`
 
-    &:hover {
-      background-color: ${hoverColor};
-      border-radius: 16px;
-    }
+const HoverButton = styled(Button) `
+    position:absolute;
+    bottom: 8px;
+    right: 8px;
+
 `
 
 export {
@@ -78,5 +88,6 @@ export {
   CardImage,
   HoverImageLink,
   HoverTitle,
-  HoverButton
+  HoverButton,
+  Button
 }

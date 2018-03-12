@@ -4,7 +4,7 @@ import { Home, About } from "./containers"
 import styled from 'styled-components'
 import { NavBar } from './styles'
 import { hoverColor } from './styles/constants/colors'
-
+import './App.css'
 const HeaderLink = styled(Link)`
   text-decoration: none;
   padding: 10px;
