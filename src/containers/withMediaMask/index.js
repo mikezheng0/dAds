@@ -28,9 +28,14 @@ export default WrappedComponent => {
       }
       this.contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
       this.placeAd = this.placeAd.bind( this)
+      this.editAd = this.editAd.bind (this)
     }
 
     placeAd(){
+      this.props.createNewAd(this.props.imgurl, this.props.linkurl, this.props.title, this.props.currentValue, this.address, this.contract)
+    }
+
+    editAd(){
       this.props.createNewAd(this.props.imgurl, this.props.linkurl, this.props.title, this.props.currentValue, this.address, this.contract)
     }
 
@@ -52,7 +57,7 @@ export default WrappedComponent => {
         return <p>Loading…</p>
       }
 
-      return <WrappedComponent {...this.props} placeAd={this.placeAd}/>
+      return <WrappedComponent {...this.props} placeAd={this.placeAd} editAd={this.editAd}/>
     }
   }
   const mapStateToProps = state => {

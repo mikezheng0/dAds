@@ -32,6 +32,18 @@ const InteractionContainer = styled.div`
 
 class PlaceAd extends Component {
 
+  componentWillMount(){
+    if (this.props.ad){
+      this.props.onChangeImgUrl({target: {value: this.props.ad.imageUrl}})
+      this.props.onChangeLinkUrl({target: {value: this.props.ad.linkUrl}})
+      this.props.onChangeTitle({target: {value: this.props.ad.title}})
+    } else {
+      this.props.onChangeImgUrl({target: {value: ""}})
+      this.props.onChangeLinkUrl({target: {value: ""}})
+      this.props.onChangeTitle({target: {value: ""}})
+    }
+  }
+
   render(){
     const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, placeAd} = this.props
     return  <div>
