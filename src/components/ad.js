@@ -23,6 +23,11 @@ const HoverButton = styled(BuyModal)`
   bottom: 8px;
   right: 8px;
 `
+const EditHoverButton = styled(BuyModal)`
+  position: absolute;
+  left: 8px;
+  top: 8px;
+`
 
 const RenderImages = ({title, imageUrl, missingMessage}) => {
   if (imageUrl) {
@@ -40,7 +45,7 @@ const RenderEdit = ({ owner, currentUser }) => {
   return ;
 }
 
-const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage, currentValue}) => (
+const Advertisement = ({ ad, fullSize, handleClick, placeAd, editAd, missingMessage, currentValue}) => (
   <Card fullSize={fullSize}>
     <RenderImages
       title={ad.title}
@@ -50,9 +55,14 @@ const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage, cur
     <HoverImageLink href={ad.linkUrl}>
       <HoverTitle>{ad.title}</HoverTitle>
       { handleClick && 
-        <HoverButton handleClick={handleClick} buttonName="Buy This Ad" title="Buy an Ad" >
+        <div>
+          <HoverButton handleClick={handleClick} buttonName="Buy This Ad" title="Buy an Ad" >
           <PlaceAd placeAd={placeAd} price={currentValue} submitText="Place Ad"/>
         </HoverButton>
+                <EditHoverButton handleClick={handleClick} buttonName="Edit This Ad" title="Edit your Ad" >
+                <PlaceAd ad={ad} placeAd={editAd} price={currentValue} submitText="Edit Ad"/>
+              </EditHoverButton>
+              </div>
       }
       <RenderEdit/>
     </HoverImageLink>

@@ -16,17 +16,17 @@ class Home extends Component {
   }
   
   render() {
-    const { mainAd, placeAd, currentValue, sideAds, currentTopAdValue } = this.props
+    const { mainAd, placeAd, editAd, currentValue, sideAds, currentTopAdValue } = this.props
     return (
       <RootBody>
-        <Advertisment ad={mainAd} fullSize={true} handleClick={this.handleClick} placeAd={placeAd}/>
+        <Advertisment ad={mainAd} fullSize={true} handleClick={this.handleClick} placeAd={placeAd} editAd={editAd}/>
         <p>current value: {currentValue && utils.fromWei( currentValue, 'ether' )}</p>
         <AdGrid>
           {sideAds && sideAds.map((ad) => <Advertisment ad={ad} key={ad.id}/>)}
         </AdGrid>
         <p>current top ad value: {currentTopAdValue && utils.fromWei( currentTopAdValue, 'ether' )}</p>
         <BuyModal  handleClick={this.handleClick} buttonName="Bid on This Set" title="Bid on this Set">
-          <PlaceAd placeAd={currentTopAdValue} price={currentTopAdValue} submitText="Place Bid"/>
+          <PlaceAd placeAd={currentTopAdValue} editAd={editAd} price={currentTopAdValue} submitText="Place Bid"/>
         </BuyModal>
       </RootBody>
     )
