@@ -3,7 +3,8 @@ import { Card, CardImage, HoverImageLink, HoverTitle } from "../styles"
 import BuyModal from './modal'
 import PlaceAd from './placeAd'
 import styled from 'styled-components'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import ShouldRenderEdit from './shouldEdit'
 
 const ImageSampler = styled.div`
   width:100%;
@@ -33,13 +34,6 @@ const RenderImages = ({title, imageUrl, missingMessage}) => {
   </ImageSampler>
 } 
 
-const RenderEdit = ({ owner, currentUser }) => {
-  if( owner === currentUser ) {
-    return <button>Edit</button>
-  }
-  return ;
-}
-
 const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage, currentValue}) => (
   <Card fullSize={fullSize}>
     <RenderImages
@@ -54,7 +48,7 @@ const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage, cur
           <PlaceAd placeAd={placeAd} price={currentValue} submitText="Place Ad"/>
         </HoverButton>
       }
-      <RenderEdit/>
+      <ShouldRenderEdit owner={ad.owner}/>
     </HoverImageLink>
   </Card>
 )

@@ -1,14 +1,14 @@
 pragma solidity ^0.4.16;
 contract Ads { // version 0.11
  
-    struct decentralAd{
+  struct decentralAd {
 		address owner;
 		string imageUrl;
 		string linkUrl;
 		string title;
 		uint256 payout;
 		bool canChange;
-    }
+  }
 	
 	decentralAd[4] public Ad;
     
@@ -16,12 +16,16 @@ contract Ads { // version 0.11
 	uint256 public currentPrice = 1000000000000000;
 	uint256 public feesCollected = 0;
 	address public contractOwner;
-    
+  
+  function() payable {
+    feesCollected += msg.value;
+  }
+
 	function Ads() public{
 		contractOwner = msg.sender;
-    }
+  }
 
-	function placeTopAd(string imageUrl, string linkUrl, string title) payable public{
+	function placeTopAd(string imageUrl, string linkUrl, string title) validCharacterLength(imageUrl, linkUrl, title) payable public{
 		if(msg.value >= topAdCurrentPrice){
 			uint256 overpaid = msg.value - topAdCurrentPrice;
 			if (overpaid > 0){
@@ -48,7 +52,7 @@ contract Ads { // version 0.11
 		}
 	}
     
-	function placeAd(string imageUrl, string linkUrl, string title) payable public{
+	function placeAd(string imageUrl, string linkUrl, string title) validCharacterLength(imageUrl, linkUrl, title) payable public{
 		if(msg.value >= currentPrice){
 			uint256 overpaid = msg.value - currentPrice;
 			if (overpaid > 0){
@@ -77,7 +81,7 @@ contract Ads { // version 0.11
 		}
 	}
     
-	function modifyAd(uint id, string title, string imageUrl, string linkUrl) hasValidId(id) public{
+	function modifyAd(uint id,  string imageUrl, string linkUrl, string title) hasValidId(id) validCharacterLength(imageUrl, linkUrl, title) public{
 		require((msg.sender == Ad[id].owner && Ad[id].canChange) || msg.sender == contractOwner);
 		Ad[id].title = title;
 		Ad[id].imageUrl = imageUrl;
@@ -92,6 +96,13 @@ contract Ads { // version 0.11
 	modifier hasValidId(uint id) {
 		require(id >= 0 && id <= 3);
 		_;
+	}
+	
+	modifier validCharacterLength(string imageUrl, string linkUrl, string title) {
+	    require(bytes(imageUrl).length <= 256);
+	    require(bytes(linkUrl).length <= 256);
+	    require(bytes(title).length <= 140);
+	    _;
 	}
     
 	function disableChangePermissions(uint256 id) onlyOwner hasValidId(id) public {
