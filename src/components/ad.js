@@ -3,6 +3,7 @@ import { Card, CardImage, HoverImageLink, HoverTitle } from "../styles"
 import BuyModal from './modal'
 import PlaceAd from './placeAd'
 import styled from 'styled-components'
+import {connect} from 'react-redux'
 
 const ImageSampler = styled.div`
   width:100%;
@@ -17,6 +18,12 @@ const ImageSampler = styled.div`
   border-radius: 8px;
 `
 
+const HoverButton = styled(BuyModal)`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+`
+
 const RenderImages = ({title, imageUrl, missingMessage}) => {
   if (imageUrl) {
     return <CardImage alt={title} src={imageUrl} />
@@ -26,18 +33,32 @@ const RenderImages = ({title, imageUrl, missingMessage}) => {
   </ImageSampler>
 } 
 
-const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage}) => (
+const RenderEdit = ({ owner, currentUser }) => {
+  if( owner === currentUser ) {
+    return <button>Edit</button>
+  }
+  return ;
+}
+
+const Advertisement = ({ ad, fullSize, handleClick, placeAd, missingMessage, currentValue}) => (
   <Card fullSize={fullSize}>
-    { <RenderImages title={ad.title} imageUrl={ad.imageUrl} missingMessage={missingMessage}/> }
+    <RenderImages
+      title={ad.title}
+      imageUrl={ad.imageUrl}
+      missingMessage={missingMessage}/>
+      
     <HoverImageLink href={ad.linkUrl}>
       <HoverTitle>{ad.title}</HoverTitle>
       { handleClick && 
-        <BuyModal handleClick={handleClick} buttonName="Buy This Ad" title="Buy an Ad">
-          <PlaceAd placeAd={placeAd}/>
-        </BuyModal>
+        <HoverButton handleClick={handleClick} buttonName="Buy This Ad" title="Buy an Ad" >
+          <PlaceAd placeAd={placeAd} price={currentValue} submitText="Place Ad"/>
+        </HoverButton>
       }
+      <RenderEdit/>
     </HoverImageLink>
   </Card>
 )
 
-export default Advertisement
+const mapStateToProps = ({currentValue}) => ({currentValue})
+
+export default connect(mapStateToProps)(Advertisement)

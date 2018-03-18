@@ -1,5 +1,5 @@
 import { Card, CardImage, HoverImageLink, HoverTitle, HoverButton} from './card'
-import { AdGrid, NavBar } from './layout'
+import { AdGrid, NavBar, RootBody } from './layout'
 export {
     Card,
     CardImage,
@@ -7,5 +7,6 @@ export {
     AdGrid,
     NavBar,
     HoverTitle,
-    HoverButton
+    HoverButton,
+    RootBody
 }

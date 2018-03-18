@@ -23,7 +23,7 @@ const ModalOverlay = styled.div`
 `
 
 const ModalContent = styled.div`
-  margin-top: 10%;
+  margin-top: 5%;
   background: white;
   position: relative;
   border-radius: 8px;
@@ -40,7 +40,7 @@ const ModalHeader = styled.div`
 
 const ModalTitle = styled.h2`
   font-variant-caps: small-caps;
-  font-size:20px;
+  font-size: 32px;
   text-transform: uppercase;
   font-weight: 300;
 `
@@ -97,7 +97,7 @@ class Modal extends Component {
       return ReactDOM.createPortal( <ModalOverlay className="open-modal" onClick={this.closeModal}>
           <ModalContent onClick={this.preventAction}>
             <ModalHeader>
-              <ModalTitle>Buy an Ad</ModalTitle> 
+              <ModalTitle>{this.props.title}</ModalTitle> 
               <ModalCloseButton onClick={this.closeModal}>✖</ModalCloseButton>
             </ModalHeader>
               {this.props.children}          
@@ -118,7 +118,7 @@ class Modal extends Component {
 
   render() {
     return <div>
-      <HoverButton onClick={this.openModal}>{this.props.buttonName}</HoverButton>
+      <HoverButton className={this.props.className} onClick={this.openModal}>{this.props.buttonName}</HoverButton>
       {this.showModal()}
     </div>
   }

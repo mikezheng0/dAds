@@ -77,9 +77,6 @@ const Button = styled.button`
 `
 
 const HoverButton = styled(Button) `
-    position:absolute;
-    bottom: 8px;
-    right: 8px;
 
 `
 

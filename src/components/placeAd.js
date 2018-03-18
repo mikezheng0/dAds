@@ -1,10 +1,10 @@
 import React, {Component} from "react"
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import { onChangeImgUrl, onChangeLinkUrl, onChangeTitle } from "../actions/adActions"
 import styled from 'styled-components'
 import { Button } from '../styles/card'
 import Advertisement from './ad'
-import {utils} from 'web3'
+import { utils } from 'web3'
 
 const TextInput = styled.input`
   display:block;
@@ -18,10 +18,11 @@ const TextInput = styled.input`
 `
 
 const TextLabel = styled.label`
-  margin-top:10px;
+  margin-top:16px;
   display:block;
   font-size: 16px;
-  color:#555;
+  color: #555;
+  font-weight:bold;
 `
 
 const InteractionContainer = styled.div`
@@ -32,25 +33,25 @@ const InteractionContainer = styled.div`
 class PlaceAd extends Component {
 
   render(){
+    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, placeAd} = this.props
     return  <div>
-      Current Price is <b>{utils.fromWei(this.props.currentValue, 'ether')} ether</b>
+      Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
-      <TextInput type="text" name="imageurl" id="imageurl" value={this.props.imgurl} onChange={this.props.onChangeImgUrl}/>
+      <TextInput type="text" name="imageurl" id="imageurl" value={imgurl} onChange={onChangeImgUrl}/>
       <TextLabel htmlFor="linkUrl">Ad Link URL</TextLabel> 
-      <TextInput type="text" name="linkUrl" id="linkUrl" value={this.props.linkurl} onChange={this.props.onChangeLinkUrl}/>
+      <TextInput type="text" name="linkUrl" id="linkUrl" value={linkurl} onChange={onChangeLinkUrl}/>
       <TextLabel htmlFor="title">Ad Title</TextLabel>
-      <TextInput type="text" name="title" id="title" value={this.props.title} onChange={this.props.onChangeTitle}/>
+      <TextInput type="text" name="title" id="title" value={title} onChange={onChangeTitle}/>
       <InteractionContainer>
-        <Button onClick={this.props.placeAd}>Place Ad</Button>
+        <Button onClick={placeAd}> {this.props.submitText} </Button>
       </InteractionContainer>
-      <Advertisement ad={{title:this.props.title, linkUrl:'#', imageUrl:this.props.imgurl}} fullSize={true} missingMessage="Sample Image"></Advertisement>
+      <Advertisement ad={{title:title, linkUrl:'#', imageUrl:imgurl}} fullSize={true} missingMessage="Sample Image"></Advertisement>
     </div>
   }
 }
 
 const mapStateToProps = ({imgurl, linkurl, title, currentValue}) => (
 {
-  currentValue,
   imgurl,
   linkurl,
   title

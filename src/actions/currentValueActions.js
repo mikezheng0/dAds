@@ -1,7 +1,4 @@
 import { CURRENT_PRICE_SUCCESS, CURRENT_TOP_AD_VALUE_SUCCESS } from "../constants/currentValue"
-import Web3 from 'web3'
-
-const web3 = new Web3()
 
 export function currentPriceSuccess(currentValue) {
   return {
@@ -33,7 +30,7 @@ export function getTopAdValue(contract) {
   return dispatch => {
     contract.methods.topAdCurrentPrice().call()
       .then(result=>{
-        dispatch(getTopAdPriceSuccess(web3.utils.fromWei(result, 'ether')))
+        dispatch(getTopAdPriceSuccess(result))
       })
       .catch(error => {
         console.error(error)

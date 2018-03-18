@@ -11,8 +11,12 @@ const NavBar = styled.nav`
   display:flex;
   justify-content: space-between;
 `
-
+const RootBody = styled.div`
+  max-width: 1100px;
+  margin: auto;
+`
 export {
   AdGrid,
-  NavBar
+  NavBar,
+  RootBody
 }
