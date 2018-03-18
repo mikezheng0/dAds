@@ -76,7 +76,7 @@ export default WrappedComponent => {
       getCurrentValue: contract => dispatch(getCurrentValue(contract)),
       getTopAdValue: contract => dispatch(getTopAdValue(contract)),
       resetSideAds: () => dispatch(resetAds()),
-      getCurrentAddress: () => dispatch(getCurrentAddress(contract)),
+      getCurrentAddress: contract => dispatch(getCurrentAddress(contract)),
       createNewAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract))
     }
   }
