@@ -3,7 +3,7 @@ import Web3 from "web3"
 import { connect } from "react-redux"
 import { CONTRACT_ADDRESS, CONTRACT_ABI, RINKEBY_ENDPOINT, RINKEBY_API_KEY } from "../../constants/contract"
 import { adFetchData, adsFetchData, resetAds, createAd } from "../../actions/adActions"
-import { getCurrentAddress } from '../../actions/contractActions'
+import { getCurrentAddress, setContract, getContract } from '../../actions/contractActions'
 import { getCurrentValue, getTopAdValue } from "../../actions/currentValueActions"
 
 export default WrappedComponent => {
@@ -27,6 +27,7 @@ export default WrappedComponent => {
         ))
       }
       this.contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
+      this.props.setContract(this.contract)
       this.placeAd = this.placeAd.bind( this)
     }
 
@@ -65,7 +66,8 @@ export default WrappedComponent => {
       isLoading: state.isLoading,
       imgurl: state.imgurl,
       linkurl: state.linkurl,
-      title: state.title
+      title: state.title,
+      contract: state.setContract
     }
   }
 
@@ -77,7 +79,8 @@ export default WrappedComponent => {
       getTopAdValue: contract => dispatch(getTopAdValue(contract)),
       resetSideAds: () => dispatch(resetAds()),
       getCurrentAddress: contract => dispatch(getCurrentAddress(contract)),
-      createNewAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract))
+      createNewAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
+      setContract: (contract) => dispatch(setContract(contract))
     }
   }
 

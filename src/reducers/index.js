@@ -9,6 +9,7 @@ import {
   linkurl,
   title
 } from "./adReducers"
+import { setContract } from "./contractReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
 export default combineReducers({
   routing: routerReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   currentTopAdValue,
   title,
   imgurl,
-  linkurl
+  linkurl,
+  setContract
 })
