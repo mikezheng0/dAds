@@ -74,14 +74,17 @@ export function adsFetchData(ids, contract) {
 }
 
 export function createAd(imageUrl, linkUrl, title, currentPrice, address, contract) {
+  console.log(address);
   return dispatch => {
-      contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
-        .then(result => {
-          // do stuff 
-        })
-        .catch(error => {
-          // do stuff
-        })
+    contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
+      .then(result => {
+        console.log(result)
+        // do stuff 
+      })
+      .catch(error => {
+        console.log(error)
+        // do stuff
+      })
 }
 }
 

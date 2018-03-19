@@ -15,7 +15,7 @@ const EditHoverButton = styled(BuyModal)`
   right: 8px;
 `
 
-const RenderEdit = ({ ad, currentUserAddress, handleClick, price, placeAd, editAd, currentValue, isTopAdvertisement}) => {
+const RenderEdit = ({ ad, currentUserAddress, price, placeAd, editAd, currentValue, isTopAdvertisement}) => {
   if(ad && ad.owner && currentUserAddress && ad.owner === currentUserAddress ) {
     return (
       <EditHoverButton buttonName="Edit This Ad" title="Edit your Ad" >
