@@ -9,6 +9,7 @@ import {
   linkurl,
   title
 } from "./adReducers"
+import { contract } from "./contractReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
 import { currentUserAddress } from './contractReducers'
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   title,
   imgurl,
   linkurl,
-  currentUserAddress
+  currentUserAddress,
+  contract
 })
