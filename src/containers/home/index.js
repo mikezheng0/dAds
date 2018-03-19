@@ -7,27 +7,20 @@ import PlaceAd from '../../components/placeAd'
 import BuyModal from '../../components/modal'
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(){
-  }
   
   render() {
     const { mainAd, placeAd, editAd, currentValue, sideAds, currentTopAdValue } = this.props
     return (
       <RootBody>
-        <Advertisment ad={mainAd} fullSize={true} handleClick={this.handleClick} placeAd={placeAd} editAd={editAd}/>
         <p>current value: {currentValue && utils.fromWei( currentValue, 'ether' )}</p>
-        <AdGrid>
-          {sideAds && sideAds.map((ad) => <Advertisment ad={ad} key={ad.id}/>)}
-        </AdGrid>
+        <Advertisment ad={mainAd} isTopAdvertisement={true} placeAd={placeAd} editAd={editAd}/>
         <p>current top ad value: {currentTopAdValue && utils.fromWei( currentTopAdValue, 'ether' )}</p>
         <BuyModal  handleClick={this.handleClick} buttonName="Bid on This Set" title="Bid on this Set">
-          <PlaceAd placeAd={currentTopAdValue} editAd={editAd} price={currentTopAdValue} submitText="Place Bid"/>
+          <PlaceAd submitHandler={placeAd} price={currentTopAdValue} submitText="Place Bid"/>
         </BuyModal>
+        <AdGrid>
+          {sideAds && sideAds.map((ad) => <Advertisment ad={ad} key={ad.id} editAd={editAd}/>)}
+        </AdGrid>
       </RootBody>
     )
   }

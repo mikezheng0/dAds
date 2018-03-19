@@ -83,7 +83,6 @@ class Modal extends Component {
 
   openModal(event) {
     event.preventDefault()
-    this.props.handleClick()
     this.setState((state)=>state.shouldShowModal = true)
   }
 

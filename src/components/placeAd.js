@@ -45,7 +45,7 @@ class PlaceAd extends Component {
   }
 
   render(){
-    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, placeAd} = this.props
+    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler} = this.props
     return  <div>
       Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
@@ -55,9 +55,9 @@ class PlaceAd extends Component {
       <TextLabel htmlFor="title">Ad Title</TextLabel>
       <TextInput type="text" name="title" id="title" value={title} onChange={onChangeTitle}/>
       <InteractionContainer>
-        <Button onClick={placeAd}> {this.props.submitText} </Button>
+        <Button onClick={submitHandler}> {submitText} </Button>
       </InteractionContainer>
-      <Advertisement ad={{title:title, linkUrl:'#', imageUrl:imgurl}} fullSize={true} missingMessage="Sample Image"></Advertisement>
+      <Advertisement ad={{ title, linkUrl:'#', imageUrl:imgurl }} isTopAdvertisement={true} missingMessage="Sample Image" isSample={true}></Advertisement>
     </div>
   }
 }
