@@ -7,7 +7,8 @@ import {
   adsIsLoading,
   imgurl,
   linkurl,
-  title
+  title,
+  id
 } from "./adReducers"
 import { contract, isMetamaskInjected } from "./contractReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
@@ -23,6 +24,7 @@ export default combineReducers({
   title,
   imgurl,
   linkurl,
+  id,
   currentUserAddress,
   contract,
   isMetamaskInjected

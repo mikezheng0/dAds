@@ -6,7 +6,8 @@ import {
   RESET_AD_FETCH_DATA_SUCCESS,
   IMG_URL_CHANGED,
   LINK_URL_CHANGED,
-  TITLE_CHANGED
+  TITLE_CHANGED,
+  ID_SAVED
 } from "../constants/ads"
 
 export function adsHasErrored(bool) {
@@ -80,7 +81,7 @@ export function createAd(imageUrl, linkUrl, title, currentPrice, address, contra
     contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
       .then(result => {
         console.log(result)
-        // do stuff 
+        window.location.reload()
       })
       .catch(error => {
         console.log(error)
@@ -95,7 +96,7 @@ export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, cont
     contract.methods.placeTopAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
     .then(result => {
       console.log(result)
-      // do stuff 
+      window.location.reload()
     })
     .catch(error => {
       console.log(error)
@@ -104,13 +105,13 @@ export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, cont
 }
 }
 
-export function editAd(adId, title, imageUrl, linkUrl, address, contract) {
+export function editAd(id, imgurl, linkurl, title, address, contract) {
   console.log(address);
   return dispatch => {
-    contract.methods.modifyAd(adId, title, imageUrl, linkUrl).send({from: address})
+    contract.methods.modifyAd(id, imgurl, linkurl, title).send({from: address})
       .then(result => {
         console.log(result)
-        // do stuff 
+        window.location.reload()
       })
       .catch(error => {
         console.log(error)
@@ -137,5 +138,12 @@ export function onChangeTitle(title){
   return {
     type: TITLE_CHANGED,
     title
+  }
+}
+
+export function onSaveId(id){
+  return {
+    type: ID_SAVED,
+    id
   }
 }

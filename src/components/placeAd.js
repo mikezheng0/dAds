@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import { connect } from "react-redux"
-import { onChangeImgUrl, onChangeLinkUrl, onChangeTitle } from "../actions/adActions"
+import { onChangeImgUrl, onChangeLinkUrl, onChangeTitle, onSaveId } from "../actions/adActions"
 import styled from 'styled-components'
 import { Button } from '../styles/card'
 import Advertisement from './ad'
@@ -38,15 +38,17 @@ class PlaceAd extends Component {
       this.props.onChangeImgUrl({target: {value: this.props.ad.imageUrl}})
       this.props.onChangeLinkUrl({target: {value: this.props.ad.linkUrl}})
       this.props.onChangeTitle({target: {value: this.props.ad.title}})
+      this.props.onSaveId({target: {value: this.props.ad.id}})
     } else {
       this.props.onChangeImgUrl({target: {value: ""}})
       this.props.onChangeLinkUrl({target: {value: ""}})
       this.props.onChangeTitle({target: {value: ""}})
+      this.props.onSaveId({target: {value: ""}})
     }
   }
 
   render(){
-    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, isMetamaskInjected} = this.props
+    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected} = this.props
     return <div>
       Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
@@ -65,19 +67,21 @@ class PlaceAd extends Component {
   }
 }
 
-const mapStateToProps = ({imgurl, linkurl, title, currentValue, isMetamaskInjected}) => (
+const mapStateToProps = ({imgurl, linkurl, title, id, currentValue, isMetamaskInjected}) => (
 {
   imgurl,
   linkurl,
   title,
-  isMetamaskInjected
+  isMetamaskInjected,
+  id
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     onChangeImgUrl: (event) => dispatch(onChangeImgUrl(event.target.value)),
     onChangeLinkUrl: (event) => dispatch(onChangeLinkUrl(event.target.value)),
-    onChangeTitle: (event) => dispatch(onChangeTitle(event.target.value))
+    onChangeTitle: (event) => dispatch(onChangeTitle(event.target.value)),
+    onSaveId: (event) => dispatch(onSaveId(event.target.value))
   }
 }
 
