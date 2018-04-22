@@ -53,7 +53,7 @@ class PlaceAd extends Component {
   }
 
   render(){
-    const { price, adDescription, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected, isContractLoading} = this.props
+    const { price, adDescription, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, isMetamaskInjected, isContractLoading} = this.props
     if (isContractLoading) {
       return <div>
         <Spinner/>

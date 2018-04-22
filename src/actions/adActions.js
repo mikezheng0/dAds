@@ -11,6 +11,10 @@ import {
   METAMASK_IS_LOADING
 } from "../constants/ads"
 
+import { fetchContract } from "./contractActions"
+import { push } from "react-router-redux"
+import  store  from "../store/index"
+
 export function adsHasErrored(bool) {
   return {
     type: ADS_HAS_ERRORED,
@@ -83,7 +87,8 @@ export function createAd(imageUrl, linkUrl, title, currentPrice, address, contra
     contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
       .then(result => {
         console.log(result)
-        window.location.reload()
+        dispatch(fetchContract())
+        dispatch(push('/'));
       })
       .catch(error => {
         console.log(error)
@@ -100,7 +105,8 @@ export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, cont
     contract.methods.placeTopAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
     .then(result => {
       console.log(result)
-      window.location.reload()
+      dispatch(fetchContract())
+      dispatch(push('/'));
     })
     .catch(error => {
       console.log(error)
@@ -117,7 +123,8 @@ export function editAd(id, imgurl, linkurl, title, address, contract) {
     contract.methods.modifyAd(id, imgurl, linkurl, title).send({from: address})
       .then(result => {
         console.log(result)
-        window.location.reload()
+        dispatch(fetchContract())
+        dispatch(push('/'));
       })
       .catch(error => {
         console.log(error)
