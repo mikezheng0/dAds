@@ -27,8 +27,8 @@ class Home extends Component {
   }
   
   editAd() {
-    const { adId, imgurl, linkurl, title, currentUserAddress, contract } = this.props
-    this.props.editAd(adId, imgurl, linkurl, title, currentUserAddress, contract)
+    const { id, imgurl, linkurl, title, currentUserAddress, contract } = this.props
+    this.props.editAd(id, imgurl, linkurl, title, currentUserAddress, contract)
   }
 
   render() {
@@ -49,10 +49,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract}) => ({
+const mapStateToProps = ({ad, ads, id, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract}) => ({
   mainAd: ad,      
   sideAds: [...ads].sort((a, b) => a.id - b.id),
-  adId: 1,
+  id,
   currentValue,
   currentTopAdValue,
   currentUserAddress, 
@@ -65,7 +65,7 @@ const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl
 const mapDispatchToProps = dispatch => ({
   placeAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
   placeTopAd: (imgurl, linkurl, title, currentTopAdValue, address, contract) => dispatch(placeTopAd(imgurl, linkurl, title, currentTopAdValue, address, contract)),
-  editAd: (adId, imgurl, linkurl, title, address, contract) => dispatch(editAd(adId, imgurl, linkurl, title, address, contract)),
+  editAd: (id, imgurl, linkurl, title, address, contract) => dispatch(editAd(id, imgurl, linkurl, title, address, contract)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withMediaMask(Home))

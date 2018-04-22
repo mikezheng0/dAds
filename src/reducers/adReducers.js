@@ -6,7 +6,8 @@ import {
   RESET_AD_FETCH_DATA_SUCCESS,
   IMG_URL_CHANGED,
   LINK_URL_CHANGED,
-  TITLE_CHANGED
+  TITLE_CHANGED,
+  ID_SAVED
 } from '../constants/ads'
 
 export function adsHasErrored(state = false, action) {
@@ -68,6 +69,16 @@ export function title(state = "", action){
 
     case TITLE_CHANGED:
       return action.title
+    default:
+      return state
+  }
+}
+
+export function id(state = "", action){
+  switch (action.type) {
+
+    case ID_SAVED:
+      return action.id
     default:
       return state
   }
