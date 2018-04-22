@@ -27,8 +27,8 @@ class Home extends Component {
   }
   
   editAd() {
-    const { adId, title, imgurl, linkurl, currentUserAddress, contract } = this.props
-    this.props.editAd(adId, title, imgurl, linkurl, currentUserAddress, contract)
+    const { adId, imgurl, linkurl, title, currentUserAddress, contract } = this.props
+    this.props.editAd(adId, imgurl, linkurl, title, currentUserAddress, contract)
   }
 
   render() {
@@ -63,9 +63,9 @@ const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl
 })
 
 const mapDispatchToProps = dispatch => ({
-  bidAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
+  placeAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
   placeTopAd: (imgurl, linkurl, title, currentTopAdValue, address, contract) => dispatch(placeTopAd(imgurl, linkurl, title, currentTopAdValue, address, contract)),
-  editAd: (adId, title, imgurl, linkurl, address, contract) => dispatch(editAd(adId, title, imgurl, linkurl, address, contract)),
+  editAd: (adId, imgurl, linkurl, title, address, contract) => dispatch(editAd(adId, imgurl, linkurl, title, address, contract)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withMediaMask(Home))

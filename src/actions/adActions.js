@@ -103,10 +103,10 @@ export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, cont
 }
 }
 
-export function editAd(adId, title, imageUrl, linkUrl, address, contract) {
+export function editAd(adId, imgurl, linkurl, title, address, contract) {
   console.log(address);
   return dispatch => {
-    contract.methods.modifyAd(adId, title, imageUrl, linkUrl).send({from: address})
+    contract.methods.modifyAd(adId, imgurl, linkurl, title).send({from: address})
       .then(result => {
         console.log(result)
         // do stuff 
