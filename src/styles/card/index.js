@@ -70,9 +70,13 @@ const Button = styled.button`
     color: black;
     padding: 10px;
     opacity: 0.4;
+    border-radius: 16px;
   &:hover {
     background-color: ${hoverColor};
-    border-radius: 16px;
+  }
+  &[disabled] {
+    background-color:darkgrey;
+    color: grey;
   }
 `
 

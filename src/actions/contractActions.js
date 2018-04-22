@@ -1,4 +1,4 @@
-import { GET_USER_ADDRESS_SUCESS, SET_CONTRACT } from '../constants/ads'
+import { GET_USER_ADDRESS_SUCESS, SET_CONTRACT, METAMASK_INJECTED_SUCCESS } from '../constants/ads'
 import { CONTRACT_ADDRESS, CONTRACT_ABI, RINKEBY_ENDPOINT, RINKEBY_API_KEY } from "../constants/contract"
 import { adFetchData, adsFetchData } from "./adActions"
 import { getCurrentValue, getTopAdValue } from "./currentValueActions"
@@ -19,6 +19,7 @@ export function fetchContract() {
   return dispatch => {
     if (typeof window.web3 !== "undefined") {
       window.web3 = new Web3(window.web3.currentProvider)
+      dispatch(metamaskInjectedSuccess(true))
     } else {
       window.web3 = new Web3()
       window.web3.setProvider(new Web3.providers.HttpProvider(
@@ -33,6 +34,13 @@ export function fetchContract() {
     dispatch(getTopAdValue(contract))
     dispatch(getCurrentValue(contract))
 
+  }
+}
+
+export function metamaskInjectedSuccess(isInjected) {
+  return {
+    type: METAMASK_INJECTED_SUCCESS,
+    isInjected
   }
 }
 

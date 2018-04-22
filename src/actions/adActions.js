@@ -59,6 +59,7 @@ export function adFetchData(id, contract) {
 export function adsFetchData(ids, contract) {
   return dispatch => {
     dispatch(adsIsLoading(true))
+    dispatch(resetAds())
     for(let id of ids)
     {
       contract.methods.Ad(id).call()

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Button } from '../styles/card'
 import Advertisement from './ad'
 import { utils } from 'web3'
+import {Tooltip} from './tooltip'
 
 const TextInput = styled.input`
   display:block;
@@ -45,7 +46,7 @@ class PlaceAd extends Component {
   }
 
   render(){
-    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler} = this.props
+    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, isMetamaskInjected} = this.props
     return <div>
       Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
@@ -55,18 +56,21 @@ class PlaceAd extends Component {
       <TextLabel htmlFor="title">Ad Title</TextLabel>
       <TextInput type="text" name="title" id="title" value={title} onChange={onChangeTitle}/>
       <InteractionContainer>
-        <Button onClick={submitHandler}> {submitText} </Button>
+        <Tooltip renderIf={isMetamaskInjected} content="Please install Metamask to bid on this Ad space">
+          <Button onClick={submitHandler} disabled={!isMetamaskInjected}> {submitText} </Button>
+        </Tooltip>
       </InteractionContainer>
       <Advertisement ad={{ title, linkUrl:'#', imageUrl:imgurl }} isTopAdvertisement={true} missingMessage="Sample Image" isSample={true}></Advertisement>
     </div>
   }
 }
 
-const mapStateToProps = ({imgurl, linkurl, title, currentValue}) => (
+const mapStateToProps = ({imgurl, linkurl, title, currentValue, isMetamaskInjected}) => (
 {
   imgurl,
   linkurl,
-  title
+  title,
+  isMetamaskInjected
 })
 
 const mapDispatchToProps = dispatch => {

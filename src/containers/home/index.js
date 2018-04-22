@@ -32,7 +32,7 @@ class Home extends Component {
   }
 
   render() {
-    const { mainAd, sideAds, currentValue, currentTopAdValue} = this.props
+    const { mainAd, sideAds, currentValue, currentTopAdValue, isMetamaskInjected} = this.props
     return (
       <RootBody>
         <p>current value: {currentValue && utils.fromWei( currentValue, 'ether' )}</p>
@@ -49,7 +49,7 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract}) => ({
+const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract, isMetamaskInjected}) => ({
   mainAd: ad,      
   sideAds: [...ads].sort((a, b) => a.id - b.id),
   adId: 1,

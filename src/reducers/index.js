@@ -9,7 +9,7 @@ import {
   linkurl,
   title
 } from "./adReducers"
-import { contract } from "./contractReducers"
+import { contract, isMetamaskInjected } from "./contractReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
 import { currentUserAddress } from './contractReducers'
 export default combineReducers({
@@ -24,5 +24,6 @@ export default combineReducers({
   imgurl,
   linkurl,
   currentUserAddress,
-  contract
+  contract,
+  isMetamaskInjected
 })
