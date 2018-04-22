@@ -81,7 +81,7 @@ contract Ads { // version 0.11
 		}
 	}
     
-	function modifyAd(uint id,  string imageUrl, string linkUrl, string title) hasValidId(id) validCharacterLength(imageUrl, linkUrl, title) public{
+	function modifyAd(uint id, string imageUrl, string linkUrl, string title) hasValidId(id) validCharacterLength(imageUrl, linkUrl, title) public{
 		require((msg.sender == Ad[id].owner && Ad[id].canChange) || msg.sender == contractOwner);
 		Ad[id].title = title;
 		Ad[id].imageUrl = imageUrl;

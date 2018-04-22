@@ -88,6 +88,22 @@ export function createAd(imageUrl, linkUrl, title, currentPrice, address, contra
 }
 }
 
+
+export function editAd(adId, title, imageUrl, linkUrl, address, contract) {
+  console.log(address);
+  return dispatch => {
+    contract.methods.modifyAd(adId, title, imageUrl, linkUrl).send({from: address})
+      .then(result => {
+        console.log(result)
+        // do stuff 
+      })
+      .catch(error => {
+        console.log(error)
+        // do stuff
+      })
+}
+}
+
 export function onChangeImgUrl(imgurl){
   return {
     type: IMG_URL_CHANGED,
