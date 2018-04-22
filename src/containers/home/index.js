@@ -8,6 +8,12 @@ import PlaceAd from '../../components/placeAd'
 import BuyModal from '../../components/modal'
 import { createAd, placeTopAd, editAd } from '../../actions/adActions'
 
+const AD_DESCRIPTION =
+  "Beat the current price to have your ad placed on the Ethereum blockchain and displayed on our site. " +
+  "Your ad will take the first spot of the three small ads. When the next person beats your price your ad " +
+  "will be pushed to the second and then third spot. If your ad gets pushed out of the three small ad spots, " +
+  "all of your money will be returned plus a 5% bonus. Every time an ad is placed the cost will rise by 10%."
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -35,11 +41,9 @@ class Home extends Component {
     const { mainAd, sideAds, currentValue, currentTopAdValue, isMetamaskInjected} = this.props
     return (
       <RootBody>
-        <p>current value: {currentValue && utils.fromWei( currentValue, 'ether' )}</p>
         <Advertisment ad={mainAd} isTopAdvertisement={true} placeAd={this.placeTopAd} editAd={this.editAd}/>
-        <p>current top ad value: {currentTopAdValue && utils.fromWei( currentTopAdValue, 'ether' )}</p>
-        <BuyModal  handleClick={this.handleClick} buttonName="Bid on This Set" title="Bid on this Set">
-          <PlaceAd submitHandler={this.placeAd} price={currentTopAdValue} submitText="Place Bid"/>
+        <BuyModal  handleClick={this.handleClick} buttonName="Bid on This Set" title="Bid on this Set" >
+          <PlaceAd submitHandler={this.placeAd} price={currentValue} submitText="Place Ad" adDescription={AD_DESCRIPTION}/>
         </BuyModal>
         <AdGrid>
           {sideAds && sideAds.map((ad) => <Advertisment ad={ad} key={ad.id} editAd={this.editAd}/>)}
