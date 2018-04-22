@@ -17,16 +17,15 @@ export function getCurrentAddress(contract) {
 
 export function fetchContract() {
   return dispatch => {
-    let web3 = window.web3
-    if (typeof web3 !== "undefined") {
-      web3 = new Web3(web3.currentProvider)
+    if (typeof window.web3 !== "undefined") {
+      window.web3 = new Web3(window.web3.currentProvider)
     } else {
-      web3 = new Web3()
-      web3.setProvider(new Web3.providers.HttpProvider(
+      window.web3 = new Web3()
+      window.web3.setProvider(new Web3.providers.HttpProvider(
         `${RINKEBY_ENDPOINT}/${RINKEBY_API_KEY}`
       ))
     }
-    const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
+    const contract = new window.web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS)
     dispatch(setContract(contract))
     dispatch(getCurrentAddress(contract))
     dispatch(adFetchData(0,contract))

@@ -46,7 +46,7 @@ class PlaceAd extends Component {
 
   render(){
     const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler} = this.props
-    return  <div>
+    return <div>
       Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
       <TextInput type="text" name="imageurl" id="imageurl" value={imgurl} onChange={onChangeImgUrl}/>
