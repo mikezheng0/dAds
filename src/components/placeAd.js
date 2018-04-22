@@ -38,7 +38,12 @@ class PlaceAd extends Component {
       this.props.onChangeImgUrl({target: {value: this.props.ad.imageUrl}})
       this.props.onChangeLinkUrl({target: {value: this.props.ad.linkUrl}})
       this.props.onChangeTitle({target: {value: this.props.ad.title}})
-      this.props.onSaveId({target: {value: this.props.ad.id}})
+      if(this.props.ad.id){
+        this.props.onSaveId({target: {value: this.props.ad.id}})
+      }
+      else{
+        this.props.onSaveId({target: {value: ""}})
+      }
     } else {
       this.props.onChangeImgUrl({target: {value: ""}})
       this.props.onChangeLinkUrl({target: {value: ""}})
@@ -48,14 +53,16 @@ class PlaceAd extends Component {
   }
 
   render(){
-    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected, isContractLoading} = this.props
+    const { price, adDescription, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected, isContractLoading} = this.props
     if (isContractLoading) {
       return <div>
         <Spinner/>
       </div>
     }
     return <div>
-      Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
+      The current price to place this ad is <b>{ utils.fromWei(price, 'ether') } ether</b>
+      <br /><br />
+      {adDescription}
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
       <TextInput type="text" name="imageurl" id="imageurl" value={imgurl} onChange={onChangeImgUrl}/>
       <TextLabel htmlFor="linkUrl">Ad Link URL</TextLabel> 
