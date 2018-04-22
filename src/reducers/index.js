@@ -10,9 +10,8 @@ import {
   title,
   id
 } from "./adReducers"
-import { contract, isMetamaskInjected } from "./contractReducers"
+import { contract, isMetamaskInjected, isContractLoading, currentUserAddress } from "./contractReducers"
 import { currentValue, currentTopAdValue } from "./currentValueReducers"
-import { currentUserAddress } from './contractReducers'
 export default combineReducers({
   routing: routerReducer,
   ad,
@@ -27,5 +26,6 @@ export default combineReducers({
   id,
   currentUserAddress,
   contract,
-  isMetamaskInjected
+  isMetamaskInjected,
+  isContractLoading
 })

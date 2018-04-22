@@ -6,7 +6,7 @@ import { Button } from '../styles/card'
 import Advertisement from './ad'
 import { utils } from 'web3'
 import {Tooltip} from './tooltip'
-
+import Spinner from './spinner'
 const TextInput = styled.input`
   display:block;
   border: 1px grey solid;
@@ -48,7 +48,12 @@ class PlaceAd extends Component {
   }
 
   render(){
-    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected} = this.props
+    const { price, imgurl, onChangeImgUrl, linkurl, onChangeLinkUrl, onChangeTitle, title, submitText, submitHandler, id, isMetamaskInjected, isContractLoading} = this.props
+    if (isContractLoading) {
+      return <div>
+        <Spinner/>
+      </div>
+    }
     return <div>
       Current Price is <b>{ utils.fromWei(price, 'ether') } ether</b>
       <TextLabel htmlFor="imageurl">Ad Image URL</TextLabel>
@@ -67,13 +72,14 @@ class PlaceAd extends Component {
   }
 }
 
-const mapStateToProps = ({imgurl, linkurl, title, id, currentValue, isMetamaskInjected}) => (
+const mapStateToProps = ({imgurl, linkurl, title, id, currentValue, isMetamaskInjected, isContractLoading}) => (
 {
   imgurl,
   linkurl,
   title,
   isMetamaskInjected,
-  id
+  id,
+  isContractLoading
 })
 
 const mapDispatchToProps = dispatch => {

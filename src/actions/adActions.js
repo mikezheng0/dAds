@@ -7,7 +7,8 @@ import {
   IMG_URL_CHANGED,
   LINK_URL_CHANGED,
   TITLE_CHANGED,
-  ID_SAVED
+  ID_SAVED,
+  METAMASK_IS_LOADING
 } from "../constants/ads"
 
 export function adsHasErrored(bool) {
@@ -76,8 +77,9 @@ export function adsFetchData(ids, contract) {
 }
 
 export function createAd(imageUrl, linkUrl, title, currentPrice, address, contract) {
-  console.log(address);
+  console.log(address)
   return dispatch => {
+    dispatch(metamaskIsLoading(true))
     contract.methods.placeAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
       .then(result => {
         console.log(result)
@@ -87,12 +89,14 @@ export function createAd(imageUrl, linkUrl, title, currentPrice, address, contra
         console.log(error)
         // do stuff
       })
+      .finally(()=> dispatch(metamaskIsLoading(false)))
 }
 }
 
 export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, contract) {
-  console.log(address);
+  console.log(address)
   return dispatch => {
+    dispatch(metamaskIsLoading(true))
     contract.methods.placeTopAd(imageUrl, linkUrl, title).send({from: address, value: currentPrice})
     .then(result => {
       console.log(result)
@@ -102,12 +106,14 @@ export function placeTopAd(imageUrl, linkUrl, title, currentPrice, address, cont
       console.log(error)
       // do stuff
     })
+    .finally(()=> dispatch(metamaskIsLoading(false)))
 }
 }
 
 export function editAd(id, imgurl, linkurl, title, address, contract) {
-  console.log(address);
+  console.log(address)
   return dispatch => {
+    dispatch(metamaskIsLoading(true))
     contract.methods.modifyAd(id, imgurl, linkurl, title).send({from: address})
       .then(result => {
         console.log(result)
@@ -117,7 +123,15 @@ export function editAd(id, imgurl, linkurl, title, address, contract) {
         console.log(error)
         // do stuff
       })
+      .finally(()=> dispatch(metamaskIsLoading(false)))
 }
+}
+
+export function metamaskIsLoading(isLoading) {
+  return {
+    type: METAMASK_IS_LOADING, 
+    isLoading
+  }
 }
 
 export function onChangeImgUrl(imgurl){
