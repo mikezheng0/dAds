@@ -6,7 +6,7 @@ import withMediaMask from "../withMediaMask"
 import Advertisment from "../../components/ad"
 import PlaceAd from '../../components/placeAd'
 import BuyModal from '../../components/modal'
-import { createAd, placeTopAd } from '../../actions/adActions'
+import { createAd, placeTopAd, editAd } from '../../actions/adActions'
 
 class Home extends Component {
   constructor(props) {
@@ -27,8 +27,8 @@ class Home extends Component {
   }
   
   editAd() {
-    const { imgurl, linkurl, title, currentValue, currentUserAddress, contract } = this.props
-    this.props.editAd(imgurl, linkurl, title, currentValue, currentUserAddress, contract)
+    const { adId, title, imgurl, linkurl, currentUserAddress, contract } = this.props
+    this.props.editAd(adId, title, imgurl, linkurl, currentUserAddress, contract)
   }
 
   render() {
@@ -49,9 +49,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ad, ads, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract}) => ({
+const mapStateToProps = ({ad, ads, adId, currentValue, currentTopAdValue, imgurl, linkurl, title, currentUserAddress, contract}) => ({
   mainAd: ad,      
   sideAds: [...ads].sort((a, b) => a.id - b.id),
+  adId: 1,
   currentValue,
   currentTopAdValue,
   currentUserAddress, 
@@ -64,7 +65,7 @@ const mapStateToProps = ({ad, ads, currentValue, currentTopAdValue, imgurl, link
 const mapDispatchToProps = dispatch => ({
   bidAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
   placeTopAd: (imgurl, linkurl, title, currentTopAdValue, address, contract) => dispatch(placeTopAd(imgurl, linkurl, title, currentTopAdValue, address, contract)),
-  editAd: (imgurl, linkurl, title, currentPrice, address, contract) => dispatch(createAd(imgurl, linkurl, title, currentPrice, address, contract)),
+  editAd: (adId, title, imgurl, linkurl, address, contract) => dispatch(editAd(adId, title, imgurl, linkurl, address, contract)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withMediaMask(Home))
